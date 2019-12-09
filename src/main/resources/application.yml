@@ -41,8 +41,6 @@ spring:
         output:
           # 用来指定topic
           destination: add-bonus
-        my-output:
-          destination: stream-my-topic
 
 
   main:
