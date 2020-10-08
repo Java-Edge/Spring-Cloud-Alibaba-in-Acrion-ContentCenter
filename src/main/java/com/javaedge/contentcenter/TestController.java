@@ -29,6 +29,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +41,7 @@ import java.util.List;
  * @author JavaEdge
  */
 @Slf4j
-//@RestController
+@RestController
 @RefreshScope
 public class TestController {
 
@@ -114,8 +115,8 @@ public class TestController {
     @GetMapping("test-hot")
     @SentinelResource("hot")
     public String testHot(
-        @RequestParam(required = false) String a,
-        @RequestParam(required = false) String b
+            @RequestParam(required = false) String a,
+            @RequestParam(required = false) String b
     ) {
         return a + " " + b;
     }
@@ -139,7 +140,7 @@ public class TestController {
 
     @GetMapping("/test-sentinel-api")
     public String testSentinelAPI(
-        @RequestParam(required = false) String a) {
+            @RequestParam(required = false) String a) {
 
         String resourceName = "test-sentinel-api";
         ContextUtil.enter(resourceName, "test-wfw");
@@ -174,10 +175,10 @@ public class TestController {
 
     @GetMapping("/test-sentinel-resource")
     @SentinelResource(
-        value = "test-sentinel-api",
-        blockHandler = "block",
-        blockHandlerClass = TestControllerBlockHandlerClass.class,
-        fallback = "fallback"
+            value = "test-sentinel-api",
+            blockHandler = "block",
+            blockHandlerClass = TestControllerBlockHandlerClass.class,
+            fallback = "fallback"
     )
     public String testSentinelResource(@RequestParam(required = false) String a) {
         if (StringUtils.isBlank(a)) {
@@ -204,9 +205,9 @@ public class TestController {
     @GetMapping("/test-rest-template-sentinel/{userId}")
     public UserDTO test(@PathVariable Integer userId) {
         return this.restTemplate
-            .getForObject(
-                "http://user-center/users/{userId}",
-                UserDTO.class, userId);
+                .getForObject(
+                        "http://user-center/users/{userId}",
+                        UserDTO.class, userId);
     }
 
     @GetMapping("/tokenRelay/{userId}")
@@ -216,13 +217,13 @@ public class TestController {
         headers.add("X-Token", token);
 
         return this.restTemplate
-            .exchange(
-                "http://user-center/users/{userId}",
-                HttpMethod.GET,
-                new HttpEntity<>(headers),
-                UserDTO.class,
-                userId
-            );
+                .exchange(
+                        "http://user-center/users/{userId}",
+                        HttpMethod.GET,
+                        new HttpEntity<>(headers),
+                        UserDTO.class,
+                        userId
+                );
     }
 
     @Value("${your.configuration}")
@@ -236,9 +237,9 @@ public class TestController {
     @GetMapping("/test-node-service")
     public String testNodeService() {
         return this.restTemplate.getForObject(
-            // localhost:8060
-            "http://wii",
-            String.class
+                // localhost:8060
+                "http://wii",
+                String.class
         );
     }
 }

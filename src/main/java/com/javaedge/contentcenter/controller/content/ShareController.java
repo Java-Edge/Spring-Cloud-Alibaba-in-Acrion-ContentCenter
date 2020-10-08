@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/shares")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class ShareConroller {
+public class ShareController {
     private final ShareService shareService;
     private final JwtOperator jwtOperator;
 
@@ -32,10 +32,10 @@ public class ShareConroller {
 
     @GetMapping("/q")
     public PageInfo<Share> q(
-        @RequestParam(required = false) String title,
-        @RequestParam(required = false, defaultValue = "1") Integer pageNo,
-        @RequestParam(required = false, defaultValue = "10") Integer pageSize,
-        @RequestHeader(value = "X-Token", required = false) String token) {
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false, defaultValue = "1") Integer pageNo,
+            @RequestParam(required = false, defaultValue = "10") Integer pageSize,
+            @RequestHeader(value = "X-Token", required = false) String token) {
         if (pageSize > 100) {
             pageSize = 100;
         }

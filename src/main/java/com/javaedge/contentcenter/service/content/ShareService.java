@@ -202,11 +202,11 @@ public class ShareService {
             throw new IllegalArgumentException("用户积分不够用！");
         }
 
-        // 4. 扣减积分 & 往mid_user_share里插入一条数据
+        // 4. 扣减积分并往mid_user_share里插入一条数据
         this.userCenterFeignClient.addBonus(
             UserAddBonseDTO.builder()
                 .userId(integerUserId)
-                .bonus(0 - price)
+                .bonus(-price)
                 .build()
         );
         this.midUserShareMapper.insert(

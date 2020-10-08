@@ -31,7 +31,6 @@ import java.util.List;
 public class FileDataSourceInit implements InitFunc {
     @Override
     public void init() throws Exception {
-        // TIPS: 如果你对这个路径不喜欢，可修改为你喜欢的路径
         String ruleDir = System.getProperty("user.home") + "/sentinel/rules";
         String flowRulePath = ruleDir + "/flow-rule.json";
         String degradeRulePath = ruleDir + "/degrade-rule.json";
